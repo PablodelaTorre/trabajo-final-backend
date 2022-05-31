@@ -1,7 +1,7 @@
 import express from 'express'
 import morgan from 'morgan'
-import productosRoutes from './routes/productos'
-import carritoRoutes from './routes/carrito'
+import productosRoutes from './routes/productos.js'
+import carritoRoutes from './routes/carrito.js'
 const app = express()
 
 app.use(express.json())

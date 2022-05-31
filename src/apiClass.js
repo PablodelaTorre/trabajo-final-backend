@@ -1,15 +1,13 @@
 import fs from 'fs'
 
-
-
 export default class Api {
     contructor(rutaBD){
         this.rutaBD = __dirname + rutaBD
     }
 
     async findAll(){
-        try{
-            const todos = await fs.promises.readFile(this.rutaBD,"utf-8")
+        try {
+            const todos = await fs.promises.readFile(this.rutaBD,'utf-8')
             return JSON.parse(todos)
         } catch (error) {
             throw new Error(`Error: ${error}`)
@@ -19,7 +17,7 @@ export default class Api {
     async findById(id){
         try {
             const todos = await this.findAll()
-            const resultado = todos.find(e => e.id===id)
+            const resultado = todos.find(e => e.id==id)
             return resultado
         } catch (error) {
             throw new Error(`Error: ${error}`)

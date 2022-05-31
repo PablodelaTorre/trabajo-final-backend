@@ -1,8 +1,18 @@
-import { Router } from "express";
+import { Router } from 'express';
 import Api from '../apiClass'
 
 const router = Router()
 const api = new Api("/dataBase/productos.json")
+
+const isAdmin = true
+
+function adminOrClient(req,res,next){
+    if(!isAdmin){
+        res.send("No tienes acceso a esta ruta")
+    } else {
+        next()
+    }
+}
 
 router.get('/', async (req,res) => {
     const products = await api.findAll()
@@ -15,7 +25,7 @@ router.get('/:id', async (req,res) => {
     res.json(product)
 })
 
-router.post('/', async (req,res) => {
+router.post('/',adminOrClient, async (req,res) => {
     const obj = req.body
     const product = await api.create(obj)
     res.json(product)
