@@ -1,14 +1,11 @@
 import fs from 'fs'
-import path from 'path'
+
 export default class Api {
-    contructor(rutaBD){
-        this.rutaBD =path.join(__dirname, rutaBD)
-        console.log(rutaBD)
+    constructor(rutaBD){
+        this.rutaBD =__dirname + rutaBD
     }
     async findAll(){
         try {
-            console.log(rutaBD)
-            console.log(__dirname)
             const todos = await fs.promises.readFile(this.rutaBD,'utf-8')
             return JSON.parse(todos)
         } catch (error) {
