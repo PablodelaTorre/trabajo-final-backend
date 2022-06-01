@@ -41,9 +41,14 @@ export default class ApiC {
         try {
             const carritos = await this.findAll()
             const carrito = await this.findById(id)
-            carrito[productos].push(product)
-            //const carritoProd = Object.assign(carrito.productos,product)
-            carritos.push(carrito)
+            const carritoProd = Object.assign(carrito.productos,product)
+            carrito.productos=carritoProd
+            carritos.map(e=>{
+                if (e.id == Number(id)){
+                    e.productos = carrito.productos
+                }    
+            })
+            //carritos[id]=carrito
             await fs.promises.writeFile(this.rutaBD,JSON.stringify(carritos))
             return product
         } catch (error) {
