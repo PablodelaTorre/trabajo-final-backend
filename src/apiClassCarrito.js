@@ -45,7 +45,7 @@ export default class Api {
                 producto = prod
                 const productos = await this.findAll()
                 productos.push(producto)
-                await fs.promises.writeFile(this.rutaBD,JSON.stringify(productos))
+                await fs.promises.writeFile(this.rutaBD,Json.stringify(productos))
         }   else {
             console.log('Producto no encontrado')
         }    
@@ -57,11 +57,8 @@ export default class Api {
 
     async deleteP(id){
         try {
-            const productos = await this.findAll()
-            const products = productos.filter(p => p.id !== Number(id))
-            console.log(productos)
-            console.log(products)
-            await fs.promises.writeFile(this.rutaBD,JSON.stringify(products))
+            const productos = await this.findAll().filter(p => p.id !== Number(id))
+            await fs.promises.writeFile(this.rutaBD,Json.stringify(productos))
         } catch (error) {
             throw new Error(`Error: ${error}`)
         }

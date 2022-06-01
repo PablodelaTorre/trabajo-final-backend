@@ -38,8 +38,8 @@ router.put('/:id',adminOrClient, async (req,res) => {
 })
 
 router.delete('/:id',adminOrClient, async (req,res) => {
-    const obj = req.body
-    const product = await api.create(obj)
+    const {id} = req.params
+    const product = await api.deleteP(id)
     res.json(product)
 })
 
