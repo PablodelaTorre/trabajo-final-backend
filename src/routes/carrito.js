@@ -1,8 +1,10 @@
 import { Router } from "express";
-import Api from '../apiClassCarrito'
+import ApiC from '../apiClassCarrito'
+import Api from '../apiClass'
 
 const router = Router()
-const api = new Api("/dataBase/carritos.json")
+const apiP = new Api("/dataBase/productos.json")
+const api = new ApiC("/dataBase/carritos.json")
 
 const isAdmin = true
 
@@ -21,15 +23,16 @@ router.get('/:id/productos', async (req,res) => {
 })
 
 router.post('/',adminOrClient, async (req,res) => {
-    const obj = req.body
-    const product = await api.create(obj)
+    const product = await api.create()
     res.json(product)
 })
 
-router.post('/:id/productos',adminOrClient, async (req,res) => {
-    const obj = req.body
-    const product = await api.create(obj)
-    res.json(product)
+router.post('/:id/productos/:id_prod',adminOrClient, async (req,res) => {
+    const {id} = req.params
+    const {id_prod} = req.params
+    const product = await apiP.findById(id_prod)
+    const produc = await api.createCarritoProds(id,product)
+    res.json(produc)
 })
 
 router.delete('/:id',adminOrClient, async (req,res) => {
@@ -40,7 +43,8 @@ router.delete('/:id',adminOrClient, async (req,res) => {
 
 
 router.delete('/:id/productos/:id_prod',adminOrClient, async (req,res) => {
-    const obj = req.body
+    const {id} = req.params
+    const {id_prod} = req.params
     const product = await api.create(obj)
     res.json(product)
 })
