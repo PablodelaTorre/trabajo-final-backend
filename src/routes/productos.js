@@ -31,8 +31,16 @@ router.post('/',adminOrClient, async (req,res) => {
     res.json(product)
 })
 
+router.put('/:id',adminOrClient, async (req,res) => {
+    const producto = req.body
+    const product = await api.actualizarP(producto)
+    res.json(product)
+})
 
-
-
+router.delete('/:id',adminOrClient, async (req,res) => {
+    const obj = req.body
+    const product = await api.create(obj)
+    res.json(product)
+})
 
 export default router
