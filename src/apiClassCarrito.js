@@ -73,8 +73,7 @@ export default class ApiC {
             await fs.promises.writeFile(this.rutaBD,JSON.stringify(products))
         } catch (error) {
             throw new Error(`Error: ${error}`)
-        }
-        
+        }    
     }
 
 }
