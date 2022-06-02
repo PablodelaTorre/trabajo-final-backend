@@ -28,8 +28,9 @@ export default class ApiC {
             const carritos = await this.findAll()
             let id
             let productos = {}
+            let timestamp = Date.now()
             carritos.length === 0 ? id = 1 : id = carritos[carritos.length-1].id + 1
-            carritos.push({id,productos})
+            carritos.push({id,productos,timestamp})
             await fs.promises.writeFile(this.rutaBD,JSON.stringify(carritos))
             return id
         } catch (error) {

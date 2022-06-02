@@ -27,8 +27,9 @@ export default class Api {
         try {
             const productos = await this.findAll()
             let id
+            let timestamp = Date.now()
             productos.length === 0 ? id = 1 : id = productos[productos.length-1].id + 1
-            productos.push({...obj,id})
+            productos.push({...obj,id,timestamp})
 
             await fs.promises.writeFile(this.rutaBD,JSON.stringify(productos))
             return id
