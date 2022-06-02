@@ -36,17 +36,17 @@ router.post('/:id/productos/:id_prod',adminOrClient, async (req,res) => {
 })
 
 router.delete('/:id',adminOrClient, async (req,res) => {
-    const obj = req.body
-    const product = await api.create(obj)
-    res.json(product)
+    const {id} = req.params
+    const carritos = await api.deleteC(id)
+    res.json(carritos)
 })
 
 
 router.delete('/:id/productos/:id_prod',adminOrClient, async (req,res) => {
     const {id} = req.params
     const {id_prod} = req.params
-    const product = await api.create(obj)
-    res.json(product)
+    const produc = await api.deleteP(id,id_prod)
+    res.json(produc)
 })
 
 

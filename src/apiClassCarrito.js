@@ -48,7 +48,6 @@ export default class ApiC {
                     e.productos = carrito.productos
                 }    
             })
-            //carritos[id]=carrito
             await fs.promises.writeFile(this.rutaBD,JSON.stringify(carritos))
             return product
         } catch (error) {
@@ -56,25 +55,21 @@ export default class ApiC {
         }
     }
 
-    async deleteP(id){
+    async deleteC(id){
         try {
-            const productos = await this.findAll()
-            const products = productos.filter(p => p.id !== Number(id))
-            console.log(productos)
-            console.log(products)
-            await fs.promises.writeFile(this.rutaBD,JSON.stringify(products))
+            const carritos = await this.findAll()
+            const carritosD = carritos.filter(p => p.id !== Number(id))
+            await fs.promises.writeFile(this.rutaBD,JSON.stringify(carritosD))
         } catch (error) {
             throw new Error(`Error: ${error}`)
         }
         
     }
 
-    async deleteP(id){
+    async deleteP(id,id_prod){
         try {
-            const productos = await this.findAll()
-            const products = productos.filter(p => p.id !== Number(id))
-            console.log(productos)
-            console.log(products)
+            const carrito = await this.findById(id)
+            const products = carrito[1].filter(p => p.id !== Number(id_prod))
             await fs.promises.writeFile(this.rutaBD,JSON.stringify(products))
         } catch (error) {
             throw new Error(`Error: ${error}`)
