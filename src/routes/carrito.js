@@ -32,7 +32,11 @@ router.post('/:id/productos/:id_prod',adminOrClient, async (req,res) => {
     const {id_prod} = req.params
     const product = await apiP.findById(id_prod)
     const produc = await api.createCarritoProds(id,product)
-    res.json(produc)
+    if(produc){
+        res.json(produc)
+    } else {
+        res.json("Producto no encontrado")
+    }
 })
 
 router.delete('/:id',adminOrClient, async (req,res) => {

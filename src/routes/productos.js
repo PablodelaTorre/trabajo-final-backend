@@ -40,7 +40,7 @@ router.put('/:id',adminOrClient, async (req,res) => {
 router.delete('/:id',adminOrClient, async (req,res) => {
     const {id} = req.params
     const product = await api.deleteP(id)
-    res.json(product)
+    res.json("Producto eliminado")
 })
 
 export default router
