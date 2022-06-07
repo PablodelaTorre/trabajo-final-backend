@@ -4,6 +4,7 @@ export default class ApiC {
     constructor(rutaBD){
         this.rutaBD =__dirname + rutaBD
     }
+
     async findAll(){
         try {
             const carritos = await fs.promises.readFile(this.rutaBD,'utf-8')
@@ -27,7 +28,7 @@ export default class ApiC {
         try {
             const carritos = await this.findAll()
             let id
-            let productos = {}
+            let productos = []
             let timestamp = Date.now()
             carritos.length === 0 ? id = 1 : id = carritos[carritos.length-1].id + 1
             carritos.push({id,productos,timestamp})
@@ -42,13 +43,12 @@ export default class ApiC {
         try {
             const carritos = await this.findAll()
             const carrito = await this.findById(id)
-            const carritoProd = Object.assign(carrito.productos,product)
-            carrito.productos=carritoProd
-            carritos.map(e=>{
-                if (e.id == Number(id)){
-                    e.productos = carrito.productos
-                }    
-            })
+            //const carritoProd = Object.assign(carrito.productos,product)
+            console.log(product)
+            console.log(carrito)
+            carrito.productos.push(product)
+            console.log(carrito)
+            carritos[id-1] = carrito
             await fs.promises.writeFile(this.rutaBD,JSON.stringify(carritos))
             return product
         } catch (error) {
